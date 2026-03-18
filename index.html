@@ -259,6 +259,11 @@ async function submit() {
   const name = document.getElementById('fname').value.trim();
   const email = document.getElementById('femail').value.trim();
   const btn = document.getElementById('n8');
+  
+  console.log('Submit appelé');
+  console.log('answers:', answers);
+  console.log('name:', name, 'email:', email);
+  
 
   btn.disabled = true;
   btn.innerHTML = '<span class="spinner"></span> Envoi...';
