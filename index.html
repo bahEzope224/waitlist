@@ -58,14 +58,13 @@ body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;min
 .share-box{margin-top:16px;background:var(--mint-light);border:1px solid rgba(45,184,122,0.3);border-radius:12px;padding:14px;font-size:12.5px;color:var(--mint-dark);}
 .spinner{display:inline-block;width:14px;height:14px;border:2px solid rgba(255,255,255,0.3);border-top-color:white;border-radius:50%;animation:spin 0.7s linear infinite;vertical-align:middle;margin-right:6px;}
 @keyframes spin{to{transform:rotate(360deg);}}
-.error-msg{background:var(--danger-light);color:var(--danger);border:1px solid rgba(192,57,43,0.2);border-radius:8px;padding:10px 12px;font-size:12px;margin-top:12px;display:none;}
 @media(max-width:480px){.card{padding:24px 18px;}.q-title{font-size:17px;}}
 </style>
 </head>
 <body>
+<iframe name="hidden_iframe" id="hidden_iframe" style="display:none;"></iframe>
 <div class="card">
   <div class="brand">Job<span>Agent</span></div>
-
   <div class="progress-wrap">
     <div class="progress-bar"><div class="progress-fill" id="prog" style="width:12%"></div></div>
     <div class="progress-label" id="prog-label">Étape 1 sur 8</div>
@@ -79,7 +78,7 @@ body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;min
     <div class="options" id="q1">
       <div class="opt" data-val="Oui, activement"><div class="opt-dot"></div><div><div class="opt-main">Oui, activement</div><div class="opt-sub">Je candidate régulièrement</div></div></div>
       <div class="opt" data-val="Oui, passif"><div class="opt-dot"></div><div><div class="opt-main">Oui, mais passif</div><div class="opt-sub">Je regarde les opportunités sans urgence</div></div></div>
-      <div class="opt" data-val="Bientôt"><div class="opt-dot"></div><div><div class="opt-main">Non, mais bientôt</div><div class="opt-sub">Je vais commencer ma recherche prochainement</div></div></div>
+      <div class="opt" data-val="Bientot"><div class="opt-dot"></div><div><div class="opt-main">Non, mais bientôt</div><div class="opt-sub">Je vais commencer ma recherche prochainement</div></div></div>
       <div class="opt" data-val="Curieux"><div class="opt-dot"></div><div><div class="opt-main">Non, juste curieux(se)</div><div class="opt-sub">Je vois ce que c'est</div></div></div>
     </div>
     <div class="nav"><div></div><button class="btn-next" id="n1" disabled onclick="next(1)">Continuer →</button></div>
@@ -92,10 +91,10 @@ body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;min
     <div class="q-sub">Choisis ce qui te correspond le plus.</div>
     <div class="options" id="q2">
       <div class="opt" data-val="Trouver des offres"><div class="opt-dot"></div><div><div class="opt-main">Trouver des offres pertinentes</div><div class="opt-sub">Trop d'offres, difficile de filtrer les bonnes</div></div></div>
-      <div class="opt" data-val="Rédiger les LM"><div class="opt-dot"></div><div><div class="opt-main">Rédiger les lettres de motivation</div><div class="opt-sub">Ça prend trop de temps et d'énergie</div></div></div>
+      <div class="opt" data-val="Rediger les LM"><div class="opt-dot"></div><div><div class="opt-main">Rédiger les lettres de motivation</div><div class="opt-sub">Ca prend trop de temps et d'énergie</div></div></div>
       <div class="opt" data-val="Suivre les candidatures"><div class="opt-dot"></div><div><div class="opt-main">Suivre mes candidatures</div><div class="opt-sub">Je perds le fil de qui j'ai contacté</div></div></div>
       <div class="opt" data-val="Relancer les recruteurs"><div class="opt-dot"></div><div><div class="opt-main">Relancer les recruteurs</div><div class="opt-sub">Je ne sais pas quand ni comment relancer</div></div></div>
-      <div class="opt" data-val="Tout à la fois"><div class="opt-dot"></div><div><div class="opt-main">Tout à la fois</div><div class="opt-sub">La recherche d'emploi est épuisante en général</div></div></div>
+      <div class="opt" data-val="Tout a la fois"><div class="opt-dot"></div><div><div class="opt-main">Tout à la fois</div><div class="opt-sub">La recherche d'emploi est épuisante en général</div></div></div>
     </div>
     <div class="nav"><button class="btn-back" onclick="back(2)">← Retour</button><button class="btn-next" id="n2" disabled onclick="next(2)">Continuer →</button></div>
   </div>
@@ -107,8 +106,8 @@ body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;min
     <div class="q-sub">Recherche d'offres, rédaction, relances, suivi...</div>
     <div class="options" id="q3">
       <div class="opt" data-val="Moins de 2h"><div class="opt-dot"></div><div class="opt-main">Moins de 2h</div></div>
-      <div class="opt" data-val="2 à 5h"><div class="opt-dot"></div><div class="opt-main">2 à 5h</div></div>
-      <div class="opt" data-val="5 à 10h"><div class="opt-dot"></div><div class="opt-main">5 à 10h</div></div>
+      <div class="opt" data-val="2 a 5h"><div class="opt-dot"></div><div class="opt-main">2 à 5h</div></div>
+      <div class="opt" data-val="5 a 10h"><div class="opt-dot"></div><div class="opt-main">5 à 10h</div></div>
       <div class="opt" data-val="Plus de 10h"><div class="opt-dot"></div><div><div class="opt-main">Plus de 10h</div><div class="opt-sub">C'est un vrai deuxième job</div></div></div>
     </div>
     <div class="nav"><button class="btn-back" onclick="back(3)">← Retour</button><button class="btn-next" id="n3" disabled onclick="next(3)">Continuer →</button></div>
@@ -121,8 +120,8 @@ body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;min
     <div class="q-sub">Plusieurs réponses possibles.</div>
     <div class="options multi" id="q4">
       <div class="opt" data-val="LinkedIn"><div class="opt-dot"></div><div class="opt-main">LinkedIn</div></div>
-      <div class="opt" data-val="Indeed / WTTJ"><div class="opt-dot"></div><div class="opt-main">Indeed / Welcome to the Jungle</div></div>
-      <div class="opt" data-val="Excel/Notion"><div class="opt-dot"></div><div class="opt-main">Excel / Notion pour le suivi</div></div>
+      <div class="opt" data-val="Indeed WTTJ"><div class="opt-dot"></div><div class="opt-main">Indeed / Welcome to the Jungle</div></div>
+      <div class="opt" data-val="Excel Notion"><div class="opt-dot"></div><div class="opt-main">Excel / Notion pour le suivi</div></div>
       <div class="opt" data-val="ChatGPT"><div class="opt-dot"></div><div class="opt-main">ChatGPT pour les lettres de motivation</div></div>
       <div class="opt" data-val="Aucun outil"><div class="opt-dot"></div><div class="opt-main">Aucun outil particulier</div></div>
     </div>
@@ -136,10 +135,10 @@ body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;min
     <div class="q-sub">Scraping des offres, lettres IA personnalisées, relances auto, suivi complet.</div>
     <div class="options" id="q5">
       <div class="opt" data-val="Gratuit uniquement"><div class="opt-dot"></div><div><div class="opt-main">Je ne paierais pas</div><div class="opt-sub">Uniquement si c'est gratuit</div></div></div>
-      <div class="opt" data-val="Moins de 5€/mois"><div class="opt-dot"></div><div><div class="opt-main">Moins de 5€/mois</div><div class="opt-sub">Un café par mois</div></div></div>
-      <div class="opt" data-val="5-15€/mois"><div class="opt-dot"></div><div><div class="opt-main">5 à 15€/mois</div><div class="opt-sub">Le prix d'un abonnement classique</div></div></div>
-      <div class="opt" data-val="15-30€/mois"><div class="opt-dot"></div><div><div class="opt-main">15 à 30€/mois</div><div class="opt-sub">Si ça me fait vraiment gagner du temps</div></div></div>
-      <div class="opt" data-val="Plus de 30€/mois"><div class="opt-dot"></div><div><div class="opt-main">Plus de 30€/mois</div><div class="opt-sub">Si le ROI est là — trouver un emploi vite</div></div></div>
+      <div class="opt" data-val="Moins de 5 euros mois"><div class="opt-dot"></div><div><div class="opt-main">Moins de 5€/mois</div><div class="opt-sub">Un café par mois</div></div></div>
+      <div class="opt" data-val="5 a 15 euros mois"><div class="opt-dot"></div><div><div class="opt-main">5 à 15€/mois</div><div class="opt-sub">Le prix d'un abonnement classique</div></div></div>
+      <div class="opt" data-val="15 a 30 euros mois"><div class="opt-dot"></div><div><div class="opt-main">15 à 30€/mois</div><div class="opt-sub">Si ca me fait vraiment gagner du temps</div></div></div>
+      <div class="opt" data-val="Plus de 30 euros mois"><div class="opt-dot"></div><div><div class="opt-main">Plus de 30€/mois</div><div class="opt-sub">Si le ROI est là</div></div></div>
     </div>
     <div class="nav"><button class="btn-back" onclick="back(5)">← Retour</button><button class="btn-next" id="n5" disabled onclick="next(5)">Continuer →</button></div>
   </div>
@@ -151,9 +150,9 @@ body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;min
     <div class="q-sub">Pas de bonne réponse — juste tes préférences.</div>
     <div class="options" id="q6">
       <div class="opt" data-val="Abonnement mensuel"><div class="opt-dot"></div><div><div class="opt-main">Abonnement mensuel</div><div class="opt-sub">Accès illimité, prix fixe chaque mois</div></div></div>
-      <div class="opt" data-val="Crédits à la carte"><div class="opt-dot"></div><div><div class="opt-main">Crédits à la carte</div><div class="opt-sub">Je paye seulement ce que j'utilise</div></div></div>
+      <div class="opt" data-val="Credits a la carte"><div class="opt-dot"></div><div><div class="opt-main">Crédits à la carte</div><div class="opt-sub">Je paye seulement ce que j'utilise</div></div></div>
       <div class="opt" data-val="Freemium"><div class="opt-dot"></div><div><div class="opt-main">Freemium</div><div class="opt-sub">Gratuit limité, puis payant pour plus</div></div></div>
-      <div class="opt" data-val="Paiement unique"><div class="opt-dot"></div><div><div class="opt-main">Paiement unique — accès à vie</div><div class="opt-sub">Je paye une fois, c'est tout</div></div></div>
+      <div class="opt" data-val="Paiement unique"><div class="opt-dot"></div><div><div class="opt-main">Paiement unique acces a vie</div><div class="opt-sub">Je paye une fois, c'est tout</div></div></div>
     </div>
     <div class="nav"><button class="btn-back" onclick="back(6)">← Retour</button><button class="btn-next" id="n6" disabled onclick="next(6)">Continuer →</button></div>
   </div>
@@ -165,7 +164,7 @@ body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;min
     <div class="q-sub">Choisis la plus importante pour toi.</div>
     <div class="options" id="q7">
       <div class="opt" data-val="Scraping automatique"><div class="opt-dot"></div><div><div class="opt-main">Scraping automatique des offres</div><div class="opt-sub">Toutes les offres qui matchent mon profil, en un clic</div></div></div>
-      <div class="opt" data-val="Lettres IA personnalisées"><div class="opt-dot"></div><div><div class="opt-main">Lettres de motivation IA</div><div class="opt-sub">Personnalisées pour chaque offre en 30 secondes</div></div></div>
+      <div class="opt" data-val="Lettres IA personnalisees"><div class="opt-dot"></div><div><div class="opt-main">Lettres de motivation IA</div><div class="opt-sub">Personnalisées pour chaque offre en 30 secondes</div></div></div>
       <div class="opt" data-val="Suivi et relances"><div class="opt-dot"></div><div><div class="opt-main">Suivi et relances automatiques</div><div class="opt-sub">Je ne perds plus aucune candidature</div></div></div>
       <div class="opt" data-val="Scoring IA des offres"><div class="opt-dot"></div><div><div class="opt-main">Scoring IA des offres</div><div class="opt-sub">L'IA note chaque offre selon mon profil</div></div></div>
     </div>
@@ -181,8 +180,7 @@ body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;min
     <input class="inp" id="fname" placeholder="Ibrahim" oninput="checkForm()" />
     <label class="field-label">Email</label>
     <input class="inp" id="femail" type="email" placeholder="ton@email.com" oninput="checkForm()" />
-    <div class="error-msg" id="errmsg">Remplis tous les champs pour continuer.</div>
-    <div class="nav"><button class="btn-back" onclick="back(8)">← Retour</button><button class="btn-next green" id="n8" disabled onclick="submit()">Rejoindre la bêta →</button></div>
+    <div class="nav"><button class="btn-back" onclick="back(8)">← Retour</button><button class="btn-next green" id="n8" disabled onclick="submitForm()">Rejoindre la bêta →</button></div>
   </div>
 
   <!-- Succès -->
@@ -192,15 +190,12 @@ body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;min
       <div class="success-title">Tu es sur la liste !</div>
       <div class="success-sub">On t'envoie ton accès bêta gratuit très prochainement.<br>Merci pour tes réponses !</div>
       <div class="summary" id="summary"></div>
-      <div class="share-box">Partage le lien à un ami en recherche d'emploi pour grimper dans la liste d'attente 👇<br><br><strong>https://job-agent-ibrahima.netlify.app</strong></div>
+      <div class="share-box">Partage le lien à un ami en recherche d'emploi pour grimper dans la liste d'attente<br><br><strong>https://job-agent-ibrahima.netlify.app</strong></div>
     </div>
   </div>
 </div>
 
 <script>
-// ════════════════════════════════════════════
-// CONFIG GOOGLE SCRIPT
-// ════════════════════════════════════════════
 const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxzuJW5Ycp31H1klsdgd2UL9RrQEQnXfd0NEJp6p161keA2TjC8mUYRpSRsHuX8hYEx7w/exec';
 
 const answers = {};
@@ -208,29 +203,29 @@ const TOTAL = 8;
 
 function updateProgress(step) {
   document.getElementById('prog').style.width = (step / TOTAL * 100) + '%';
-  document.getElementById('prog-label').textContent = `Étape ${step} sur ${TOTAL}`;
+  document.getElementById('prog-label').textContent = 'Etape ' + step + ' sur ' + TOTAL;
 }
 
-// Options single
-document.querySelectorAll('.options:not(.multi) .opt').forEach(opt => {
+document.querySelectorAll('.options:not(.multi) .opt').forEach(function(opt) {
   opt.addEventListener('click', function() {
-    const parent = this.closest('.options');
-    parent.querySelectorAll('.opt').forEach(o => o.classList.remove('sel'));
+    var parent = this.closest('.options');
+    parent.querySelectorAll('.opt').forEach(function(o) { o.classList.remove('sel'); });
     this.classList.add('sel');
-    const step = parent.id.replace('q', '');
+    var step = parent.id.replace('q', '');
     answers['q' + step] = this.dataset.val;
-    const btn = document.getElementById('n' + step);
+    var btn = document.getElementById('n' + step);
     if (btn) btn.disabled = false;
   });
 });
 
-// Options multi
-document.querySelectorAll('.multi .opt').forEach(opt => {
+document.querySelectorAll('.multi .opt').forEach(function(opt) {
   opt.addEventListener('click', function() {
     this.classList.toggle('sel');
-    const parent = this.closest('.options');
-    const step = parent.id.replace('q', '');
-    answers['q' + step] = [...parent.querySelectorAll('.opt.sel')].map(o => o.dataset.val).join(', ');
+    var parent = this.closest('.options');
+    var step = parent.id.replace('q', '');
+    var selected = [];
+    parent.querySelectorAll('.opt.sel').forEach(function(o) { selected.push(o.dataset.val); });
+    answers['q' + step] = selected.join(', ');
   });
 });
 
@@ -249,72 +244,67 @@ function back(step) {
 }
 
 function checkForm() {
-  const email = document.getElementById('femail').value;
-  const name = document.getElementById('fname').value;
-  const valid = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email) && name.trim().length > 1;
+  var email = document.getElementById('femail').value;
+  var name = document.getElementById('fname').value;
+  var valid = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email) && name.trim().length > 1;
   document.getElementById('n8').disabled = !valid;
 }
 
-async function submit() {
-  const name = document.getElementById('fname').value.trim();
-  const email = document.getElementById('femail').value.trim();
-  const btn = document.getElementById('n8');
-  
-  console.log('Submit appelé');
-  console.log('answers:', answers);
-  console.log('name:', name, 'email:', email);
-  
+function submitForm() {
+  var name = document.getElementById('fname').value.trim();
+  var email = document.getElementById('femail').value.trim();
+  var btn = document.getElementById('n8');
 
   btn.disabled = true;
   btn.innerHTML = '<span class="spinner"></span> Envoi...';
 
-  answers.email = email;
-  answers.name = name;
-  answers.timestamp = new Date().toISOString();
+  // Crée un formulaire caché et le soumet vers l'iframe
+  var form = document.createElement('form');
+  form.method = 'POST';
+  form.action = SCRIPT_URL;
+  form.target = 'hidden_iframe';
+  form.style.display = 'none';
 
-  // Envoi vers Airtable
-  try {
-    const res = await fetch(`https://api.airtable.com/v0/${AIRTABLE_BASE_ID}/${encodeURIComponent(AIRTABLE_TABLE)}`, {
-      method: 'POST',
-      headers: {
-        'Authorization': `Bearer ${AIRTABLE_TOKEN}`,
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({
-        fields: {
-          'Prénom':            name,
-          'Email':             email,
-          'Situation':         answers.q1 || '',
-          'Problème':          answers.q2 || '',
-          'Temps/semaine':     answers.q3 || '',
-          'Outils actuels':    answers.q4 || '',
-          'Budget':            answers.q5 || '',
-          'Modèle préféré':    answers.q6 || '',
-          'Feature clé':       answers.q7 || '',
-          'Date':              answers.timestamp,
-        }
-      })
-    });
+  var fields = {
+    name: name,
+    email: email,
+    q1: answers.q1 || '',
+    q2: answers.q2 || '',
+    q3: answers.q3 || '',
+    q4: answers.q4 || '',
+    q5: answers.q5 || '',
+    q6: answers.q6 || '',
+    q7: answers.q7 || '',
+    source: new URLSearchParams(window.location.search).get('src') || 'direct'
+  };
 
-    if (!res.ok) throw new Error('Airtable error');
-  } catch(e) {
-    // Sauvegarde locale en cas d'erreur réseau
-    const local = JSON.parse(localStorage.getItem('ja_waitlist') || '[]');
-    local.push(answers);
-    localStorage.setItem('ja_waitlist', JSON.stringify(local));
-  }
-
-  // Affiche la page succès
-  document.getElementById('s8').classList.remove('active');
-  document.getElementById('success').classList.add('active');
-  updateProgress(8);
-
-  const labels = {q1:'Situation',q2:'Problème',q3:'Temps/semaine',q4:'Outils',q5:'Budget',q6:'Modèle',q7:'Feature clé'};
-  let html = '';
-  Object.entries(labels).forEach(([k,label]) => {
-    if(answers[k]) html += `<div class="sum-row"><span class="sum-key">${label}</span><span class="sum-val">${answers[k]}</span></div>`;
+  Object.keys(fields).forEach(function(key) {
+    var input = document.createElement('input');
+    input.type = 'hidden';
+    input.name = key;
+    input.value = fields[key];
+    form.appendChild(input);
   });
-  document.getElementById('summary').innerHTML = html;
+
+  document.body.appendChild(form);
+  form.submit();
+  document.body.removeChild(form);
+
+  // Affiche la page succès après 800ms
+  setTimeout(function() {
+    document.getElementById('s8').classList.remove('active');
+    document.getElementById('success').classList.add('active');
+    updateProgress(8);
+
+    var labels = {q1:'Situation', q2:'Probleme', q3:'Temps/semaine', q4:'Outils', q5:'Budget', q6:'Modele', q7:'Feature cle'};
+    var html = '';
+    Object.keys(labels).forEach(function(k) {
+      if (answers[k]) {
+        html += '<div class="sum-row"><span class="sum-key">' + labels[k] + '</span><span class="sum-val">' + answers[k] + '</span></div>';
+      }
+    });
+    document.getElementById('summary').innerHTML = html;
+  }, 800);
 }
 </script>
 </body>
