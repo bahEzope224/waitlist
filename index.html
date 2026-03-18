@@ -196,7 +196,7 @@ body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;min
 </div>
 
 <script>
-const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxQeYXurATG6jBVuic7y5LPfGO_rGpd_ogjSVc4RqdOLSjHd69D1_2eBT47zLElftBqDg/exec';
+const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbya4CH4Y48yLoXXinbNgsJqV4G9CpXmHHjZoyZiIb-OQA7y2qFkgrSG7owRmAkDCODyaA/exec';
 
 const answers = {};
 const TOTAL = 8;
@@ -250,6 +250,18 @@ function checkForm() {
   document.getElementById('n8').disabled = !valid;
 }
 
+function showSuccess() {
+  document.getElementById('s8').classList.remove('active');
+  document.getElementById('success').classList.add('active');
+  updateProgress(8);
+  var labels = {q1:'Situation', q2:'Probleme', q3:'Temps/semaine', q4:'Outils', q5:'Budget', q6:'Modele', q7:'Feature cle'};
+  var html = '';
+  Object.keys(labels).forEach(function(k) {
+    if (answers[k]) html += '<div class="sum-row"><span class="sum-key">' + labels[k] + '</span><span class="sum-val">' + answers[k] + '</span></div>';
+  });
+  document.getElementById('summary').innerHTML = html;
+}
+
 function submitForm() {
   var name = document.getElementById('fname').value.trim();
   var email = document.getElementById('femail').value.trim();
@@ -258,14 +270,7 @@ function submitForm() {
   btn.disabled = true;
   btn.innerHTML = '<span class="spinner"></span> Envoi...';
 
-  // Crée un formulaire caché et le soumet vers l'iframe
-  var form = document.createElement('form');
-  form.method = 'POST';
-  form.action = SCRIPT_URL;
-  form.target = 'hidden_iframe';
-  form.style.display = 'none';
-
-  var fields = {
+  var payload = {
     name: name,
     email: email,
     q1: answers.q1 || '',
@@ -278,33 +283,19 @@ function submitForm() {
     source: new URLSearchParams(window.location.search).get('src') || 'direct'
   };
 
-  Object.keys(fields).forEach(function(key) {
-    var input = document.createElement('input');
-    input.type = 'hidden';
-    input.name = key;
-    input.value = fields[key];
-    form.appendChild(input);
+  fetch(SCRIPT_URL, {
+    method: 'POST',
+    body: JSON.stringify(payload)
+  })
+  .then(function(response) { return response.json(); })
+  .then(function(data) {
+    showSuccess();
+  })
+  .catch(function(error) {
+    console.error('Erreur:', error);
+    // Affiche quand même le succès pour ne pas bloquer l'UX
+    showSuccess();
   });
-
-  document.body.appendChild(form);
-  form.submit();
-  document.body.removeChild(form);
-
-  // Affiche la page succès après 800ms
-  setTimeout(function() {
-    document.getElementById('s8').classList.remove('active');
-    document.getElementById('success').classList.add('active');
-    updateProgress(8);
-
-    var labels = {q1:'Situation', q2:'Probleme', q3:'Temps/semaine', q4:'Outils', q5:'Budget', q6:'Modele', q7:'Feature cle'};
-    var html = '';
-    Object.keys(labels).forEach(function(k) {
-      if (answers[k]) {
-        html += '<div class="sum-row"><span class="sum-key">' + labels[k] + '</span><span class="sum-val">' + answers[k] + '</span></div>';
-      }
-    });
-    document.getElementById('summary').innerHTML = html;
-  }, 800);
 }
 </script>
 </body>
