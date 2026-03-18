@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>JobAgent — Planning de lancement</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=DM+Sans:wght@300;400;500&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #f4ede0;
+  --surface: #fdf8f0;
+  --border: rgba(160,140,110,0.25);
+  --text: #1e1a14;
+  --text-muted: #6b5c42;
+  --text-dim: #a89478;
+  --mint: #2db87a;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { background: var(--bg); color: var(--text); font-family: 'DM Sans', sans-serif; padding: 32px 24px; min-height: 100vh; }
+.page { max-width: 1100px; margin: 0 auto; }
+.brand { font-family: 'Syne', sans-serif; font-size: 22px; font-weight: 800; letter-spacing: -0.5px; margin-bottom: 4px; }
+.brand span { color: var(--mint); }
+.subtitle { font-size: 13px; color: var(--text-muted); margin-bottom: 28px; font-family: 'DM Mono', monospace; }
+.card { background: var(--surface); border: 1px solid var(--border); border-radius: 16px; padding: 28px 24px; overflow-x: auto; }
+.g-header { display: grid; grid-template-columns: 200px 1fr; gap: 0; margin-bottom: 2px; }
+.g-title { font-size: 11px; font-weight: 500; color: var(--text-muted); padding: 0 12px 8px 0; font-family: 'DM Mono', monospace; }
+.g-weeks { display: grid; grid-template-columns: repeat(8, 1fr); }
+.g-week { font-size: 10px; color: var(--text-dim); text-align: center; border-left: 0.5px solid var(--border); padding-bottom: 8px; font-family: 'DM Mono', monospace; }
+.g-section { margin-bottom: 6px; }
+.g-section-label { font-size: 10px; font-weight: 500; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.8px; padding: 12px 0 5px 0; border-top: 0.5px solid var(--border); font-family: 'DM Mono', monospace; }
+.g-row { display: grid; grid-template-columns: 200px 1fr; gap: 0; align-items: center; min-height: 34px; margin-bottom: 3px; }
+.g-label { font-size: 12px; color: var(--text); padding-right: 14px; line-height: 1.3; }
+.g-label span { display: block; font-size: 10.5px; color: var(--text-dim); margin-top: 1px; }
+.g-track { position: relative; height: 34px; display: flex; align-items: center; }
+.g-bar { position: absolute; height: 22px; border-radius: 5px; display: flex; align-items: center; padding: 0 8px; font-size: 10px; font-weight: 500; white-space: nowrap; overflow: hidden; }
+.legend { display: flex; flex-wrap: wrap; gap: 14px; margin-top: 20px; padding-top: 14px; border-top: 0.5px solid var(--border); }
+.leg-item { display: flex; align-items: center; gap: 6px; font-size: 11.5px; color: var(--text-muted); }
+.leg-dot { width: 10px; height: 10px; border-radius: 2px; flex-shrink: 0; }
+.today-line { position: absolute; top: 0; bottom: 0; width: 1.5px; background: #c0392b; z-index: 10; pointer-events: none; }
+.today-tag { position: absolute; top: -22px; left: 50%; transform: translateX(-50%); font-size: 10px; color: #c0392b; font-weight: 500; white-space: nowrap; font-family: 'DM Mono', monospace; }
+</style>
+</head>
+<body>
+<div class="page">
+  <div class="brand">Job<span>Agent</span></div>
+  <div class="subtitle">Planning de lancement — 8 semaines · Démarrage mercredi 18 mars 2026</div>
+  <div class="card">
+    <div id="gantt"></div>
+  </div>
+</div>
+
+<script>
+const TOTAL_DAYS = 56;
+
+function pct(day) { return (day / TOTAL_DAYS * 100).toFixed(2) + '%'; }
+function w(s, e) { return ((e - s) / TOTAL_DAYS * 100).toFixed(2) + '%'; }
+
+const COLORS = {
+  teal:   { bar: '#1D9E75', text: '#04342C' },
+  purple: { bar: '#7F77DD', text: '#26215C' },
+  amber:  { bar: '#EF9F27', text: '#412402' },
+  coral:  { bar: '#D85A30', text: '#4A1B0C' },
+  blue:   { bar: '#378ADD', text: '#042C53' },
+  green:  { bar: '#639922', text: '#173404' },
+};
+
+const weeks = ['Mer 18/03','Lun 23/03','Lun 30/03','Lun 06/04','Lun 13/04','Lun 20/04','Lun 27/04','Lun 04/05'];
+
+const sections = [
+  {
+    label: 'Semaine 1 — Diffusion & validation',
+    rows: [
+      { label: 'Déployer questionnaire', sub: 'Netlify drop', start: 0, end: 1, color: 'teal' },
+      { label: 'Post LinkedIn', sub: 'Texte A — storytelling', start: 0, end: 1, color: 'teal' },
+      { label: 'Post Twitter thread', sub: 'Textes B + C', start: 1, end: 2, color: 'teal' },
+      { label: 'Reddit r/france + r/emploi', sub: 'Post + commentaires', start: 2, end: 4, color: 'teal' },
+      { label: 'Discord bootcamps', sub: 'Le Wagon, DataBird, WCS', start: 1, end: 7, color: 'teal' },
+      { label: 'Analyse questionnaire', sub: 'Dès 50 réponses', start: 4, end: 7, color: 'purple' },
+    ]
+  },
+  {
+    label: 'Semaine 2 — Emails bêta & premier €',
+    rows: [
+      { label: 'Emails perso aux répondants', sub: 'Offre 4.99€ bêta', start: 7, end: 10, color: 'amber' },
+      { label: 'Merger branche main', sub: 'feature/multiuser → main', start: 7, end: 8, color: 'purple' },
+      { label: 'Stripe + billing live', sub: 'Déployer sur Render', start: 8, end: 12, color: 'coral' },
+      { label: 'Onboarding 10 bêta users', sub: 'Accès + suivi perso', start: 10, end: 14, color: 'amber' },
+      { label: 'Post Instagram / TikTok', sub: 'Courte démo vidéo', start: 9, end: 11, color: 'teal' },
+    ]
+  },
+  {
+    label: 'Semaine 3 — Itération produit',
+    rows: [
+      { label: 'Collecter retours bêta', sub: 'Formulaire feedback', start: 14, end: 18, color: 'purple' },
+      { label: 'Fix bugs prioritaires', sub: 'Basé sur retours', start: 16, end: 21, color: 'coral' },
+      { label: 'Partenariats coachs carrière', sub: '3-5 coachs LinkedIn', start: 14, end: 21, color: 'blue' },
+      { label: '2e vague diffusion', sub: 'Groupes FB emploi', start: 17, end: 21, color: 'teal' },
+      { label: 'Export PDF lettres', sub: 'Feature premium', start: 18, end: 25, color: 'green' },
+    ]
+  },
+  {
+    label: 'Semaines 4-8 — Croissance & revenus',
+    rows: [
+      { label: 'Lancement pricing public', sub: '9.99 / 19.99 / 49€', start: 21, end: 23, color: 'coral' },
+      { label: 'Contenu LinkedIn hebdo', sub: '2 posts/semaine', start: 21, end: 56, color: 'teal' },
+      { label: 'Objectif 50 payants', sub: 'Cible semaine 6', start: 21, end: 42, color: 'amber' },
+      { label: 'Objectif 100 payants', sub: 'Cible semaine 8', start: 42, end: 56, color: 'green' },
+      { label: 'Scraper LinkedIn / WTTJ', sub: 'Amélioration données', start: 28, end: 42, color: 'purple' },
+    ]
+  }
+];
+
+const legs = [
+  { color: COLORS.teal.bar, label: 'Diffusion & acquisition' },
+  { color: COLORS.purple.bar, label: 'Produit & technique' },
+  { color: COLORS.amber.bar, label: 'Commercial & ventes' },
+  { color: COLORS.coral.bar, label: 'Billing & pricing' },
+  { color: COLORS.blue.bar, label: 'Partenariats' },
+  { color: COLORS.green.bar, label: 'Objectifs revenus' },
+];
+
+function render() {
+  const g = document.getElementById('gantt');
+  let html = '';
+
+  // Header
+  html += '<div class="g-header">';
+  html += '<div class="g-title">Tâche</div>';
+  html += '<div class="g-weeks">';
+  weeks.forEach(w => { html += `<div class="g-week">${w}</div>`; });
+  html += '</div></div>';
+
+  // Sections
+  sections.forEach(sec => {
+    html += '<div class="g-section">';
+    html += `<div class="g-section-label">${sec.label}</div>`;
+    sec.rows.forEach(row => {
+      const c = COLORS[row.color];
+      html += '<div class="g-row">';
+      html += `<div class="g-label">${row.label}<span>${row.sub}</span></div>`;
+      html += '<div class="g-track">';
+      // Ligne de fond des semaines
+      for (let i = 0; i < 8; i++) {
+        html += `<div style="position:absolute;left:${(i/8*100).toFixed(1)}%;width:${(1/8*100).toFixed(1)}%;height:100%;border-left:0.5px solid rgba(160,140,110,0.12);"></div>`;
+      }
+      html += `<div class="g-bar" style="left:${pct(row.start)};width:${w(row.start,row.end)};background:${c.bar};color:${c.text};"></div>`;
+      html += '</div></div>';
+    });
+    html += '</div>';
+  });
+
+  // Ligne aujourd'hui (jour 0)
+  html += `<div style="position:relative;height:4px;">
+    <div class="today-line" style="left:calc(200px + 0px);">
+      <div class="today-tag">Aujourd'hui</div>
+    </div>
+  </div>`;
+
+  // Légende
+  html += '<div class="legend">';
+  legs.forEach(l => {
+    html += `<div class="leg-item"><div class="leg-dot" style="background:${l.color}"></div>${l.label}</div>`;
+  });
+  html += '</div>';
+
+  g.innerHTML = html;
+}
+
+render();
+</script>
+</body>
+</html>
