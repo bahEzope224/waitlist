@@ -1,0 +1,152 @@
+Je vais rédiger des versions finales, personnalisées et prêtes à publier — pas des templates génériques. Le LinkedIn surtout sera vraiment travaillé pour maximiser l'engagement.Voilà les 4 contenus prêts à publier. Quelques conseils avant de poster :
+
+**LinkedIn** — remplace "6 mois" par ton vrai chiffre si c'est différent. Ce post est conçu pour l'algorithme LinkedIn : lignes courtes, ligne de rupture avant "J'ai décidé de régler ça", et le CTA tague en commentaire (ce qui booste la portée). Poste idéalement jeudi matin entre 8h et 9h.
+
+**Twitter** — commence par le thread complet en 5 tweets, c'est ce qui génère le plus de reach. Si tu veux tester rapidement, poste d'abord le tweet "pain point" seul et observe les réactions. Le tweet "build en public" est pour la communauté tech française (#buildinpublic).
+
+**Reddit** — sur r/france et r/emploi, réponds à chaque commentaire dans l'heure qui suit le post, ça aide à monter dans les votes. L'edit avec la stack à la fin est un détail qui crédibilise énormément sur Reddit tech. Pour r/cscareerquestions, poste le dimanche soir heure américaine (soit lundi matin en France) — c'est le meilleur timing.
+
+N'oublie pas de remplacer `[LIEN]` par l'URL Netlify de ton questionnaire partout avant de publier !
+
+
+Titre : J'ai construit un agent IA qui automatise la recherche d'emploi — 100 places bêta gratuites
+
+---
+
+Salut r/france,
+
+Je bosse depuis quelques mois sur un side project et je cherche des gens pour le tester.
+
+Contexte : j'en avais marre de la recherche d'emploi. Pas parce que c'est difficile en soi, mais parce que 80% du temps passé dessus c'est des tâches répétitives et mécaniques — scroller des offres, remplir les mêmes infos, réécrire les mêmes lettres, oublier de relancer.
+
+Alors j'ai construit JobAgent.
+
+**Ce que ça fait concritement :**
+
+- Scraping automatique des offres selon ton profil (métier, localisation, type de contrat)
+- Scoring IA de chaque offre sur 100 selon tes vraies compétences — pour ne candidater que là où ça vaut le coup
+- Génération d'une lettre de motivation personnalisée pour chaque offre en 30 secondes
+- Suivi de toutes tes candidatures dans un dashboard
+- Rappels de relance automatiques à J+7 avec rédaction du mail
+
+**Pour qui ?**
+N'importe qui qui cherche un emploi, un stage ou une alternance en France.
+
+**C'est gratuit ?**
+Oui pour les 100 premiers : accès complet 30 jours, pas de CB, pas d'engagement.
+
+**Comment tester ?**
+Remplis ce questionnaire (3 min) : [LIEN]
+Tu recevras un email avec ton accès dès que c'est prêt.
+
+Je suis dispo pour répondre à toutes vos questions en commentaires 👇
+
+Edit : pour ceux qui demandent la stack — FastAPI + PostgreSQL + GPT-4o-mini déployé sur Render.
+
+
+
+
+
+J'ai mis 6 mois à trouver mon premier stage.
+
+Pas parce que je n'étais pas qualifié.
+Pas parce que je ne travaillais pas assez.
+
+Mais parce que chercher un emploi en 2026, c'est un travail à plein temps que personne ne te paye.
+
+Chaque semaine, c'était la même routine :
+→ 3h à chercher des offres sur Indeed, LinkedIn, WTTJ
+→ 1h à réécrire la même lettre de motivation en changeant juste le nom de l'entreprise
+→ Des relances oubliées parce que je ne savais plus qui j'avais contacté
+→ Des semaines sans réponse à attendre dans le vide
+
+J'ai décidé de régler ça une bonne fois pour toutes.
+
+J'ai construit JobAgent — un agent IA qui automatise toute la partie mécanique de la recherche d'emploi.
+
+Concrètement, voici ce qu'il fait :
+
+🔍 Il scrape automatiquement toutes les offres qui correspondent à ton profil (secteur, localisation, type de contrat) sur les grandes plateformes
+
+⭐ Il note chaque offre sur 100 selon tes vraies compétences — pour que tu candidates seulement là où tu as une chance réelle
+
+✉️ Il génère une lettre de motivation unique pour chaque offre en 30 secondes — personnalisée, pas du copier-coller
+
+🔁 Il te rappelle de relancer 7 jours après chaque candidature et rédige le mail à ta place
+
+📊 Tu vois tout dans un dashboard : envoyées, en attente, relances, entretiens
+
+Aujourd'hui l'outil tourne avec de vrais utilisateurs.
+
+Je cherche 100 personnes pour le tester gratuitement pendant 30 jours.
+Pas de carte bancaire. Pas d'engagement. Juste ton retour honnête.
+
+Si tu cherches un emploi, un stage ou une alternance — ou si tu vas le faire bientôt — ce lien est pour toi 👇
+
+[LIEN QUESTIONNAIRE]
+
+Et si tu connais quelqu'un en recherche d'emploi, tague-le en commentaire. Ça prend 3 minutes et ça peut vraiment changer son quotidien.
+
+---
+
+#emploi #recherchedemploi #IA #intelligenceartificielle #stage #alternance #jobsearch #tech #startup #sideproject
+
+
+
+
+
+
+
+
+Tweet 1 — Hook :
+J'ai passé des mois à chercher un emploi.
+
+Et j'ai réalisé que 80% du temps était perdu sur des tâches mécaniques — pas sur l'essentiel.
+
+Alors j'ai construit quelque chose. Thread 🧵
+
+---
+
+Tweet 2 — Problème :
+Chercher un emploi en 2026, c'est :
+
+→ Scroller des heures pour trouver des offres pertinentes
+→ Réécrire la même LM 50 fois
+→ Oublier de relancer (et perdre l'opportunité)
+→ Ne plus savoir où on en est
+
+C'est un boulot à plein temps. Que personne ne paye.
+
+---
+
+Tweet 3 — Solution :
+JobAgent automatise tout ça.
+
+🔍 Scrape les offres selon ton profil en temps réel
+⭐ Note chaque offre sur 100 (vaut-il la peine de postuler ?)
+✉️ Génère une lettre personnalisée pour chaque offre en 30 sec
+🔁 Relance automatiquement les recruteurs à J+7
+📊 Tableau de bord complet de tes candidatures
+
+Stack : FastAPI + PostgreSQL + GPT-4o-mini
+
+---
+
+Tweet 4 — Preuve :
+L'outil tourne avec de vrais utilisateurs depuis cette semaine.
+
+Résultat concret : au lieu de passer 10h/semaine sur sa recherche d'emploi, un utilisateur passe maintenant 20 minutes.
+
+L'IA fait le reste.
+
+---
+
+Tweet 5 — CTA :
+Je cherche 100 bêta-testeurs.
+
+Accès complet gratuit pendant 30 jours.
+Pas de CB. Juste ton retour honnête.
+
+👉 [LIEN QUESTIONNAIRE] (3 min)
+
+RT apprécié si tu connais quelqu'un en recherche d'emploi 🙏
